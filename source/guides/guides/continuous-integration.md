@@ -71,6 +71,16 @@ Most CI providers will automatically kill background processes so you don't have
 However, if you're running this script locally you'll have to do a bit more work to collect the backgrounded PID and then kill it after `cypress run`.
 {% endnote %}
 
+Some providers (like CircleCI) might kill background processes to quickly, instead use:
+
+```yaml
+- run:
+    command: npm start
+    background: true
+- run: wait-on http://localhost:8080
+- run: cypress run
+```
+
 ***`start-server-and-test` module***
 
 If the server takes a very long time to start, we recommend trying the {% url start-server-and-test https://github.com/bahmutov/start-server-and-test %} module.
